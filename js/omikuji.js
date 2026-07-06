@@ -1,4 +1,6 @@
 "use strict";
+let n = null;
+let prev_n = null;
 
 let currentAudio = null;
 let omikuji_sound1 = new Audio("./sound/omikuji_sound1.mp3");
@@ -47,44 +49,61 @@ window.addEventListener(
 
 const btn1 = document.getElementById("btn1");
 const omikujiText = document.getElementById("omikujiText");
+const omikujiTextImage = document.getElementById("omikujiTextImage");
 
 btn1.addEventListener(
   "click",
   function () {
-    let resultText = [
-      "大吉!!!!!!",
-      "吉!!!!!",
-      "中吉!!!!",
-      "小吉!!!",
-      "末吉!!",
-      "凶..",
+    let resultTextImage = [
+      "./img/omikuji-daikichi1.png",
+      "./img/omikuji-kichi1.png",
+      "./img/omikuji-chukichi1.png",
+      "./img/omikuji-syoukichi1.png",
+      "./img/omikuji-suekichi1.png",
+      "./img/omikuji-kyo1.png",
     ];
-    let resultColor = [
-      "#ff0000",
-      "#c71585",
-      "#ff1493",
-      "#ff69b4",
-      "#ff8c00",
-      "#1e90ff",
-    ];
-    let resultFontSize = ["80px", "70px", "60px", "50px", "40px", "30px"];
-    let resultMaxSpeed = [20, 15, 10, 5, 5, 5];
-    let resultMaxSize = [35, 30, 20, 10, 20, 30];
-    let resultMinSize = [20, 15, 10, 8, 10, 15];
+    // let resultColor = [
+    //   "#ff0000",
+    //   "#c71585",
+    //   "#ff1493",
+    //   "#ff69b4",
+    //   "#ff8c00",
+    //   "#1e90ff",
+    // ];
+    // let resultFontSize = ["80px", "70px", "60px", "50px", "40px", "30px"];
+    let resultMaxSpeed = [20, 15, 10, 10, 5, 5];
+    let resultMaxSize = [35, 30, 30, 20, 30, 30];
+    let resultMinSize = [20, 15, 20, 10, 10, 15];
     let resultImage = [
-      "img/star.png",
-      "img/sakura_hanabira.png",
-      "img/sakura_hanabira.png",
-      "img/sakura_hanabira.png",
-      "img/leaf.png",
-      "img/snowflakes.png",
+      "img/balloon.png",
+      "img/treats.png",
+      "img/p1046.png",
+      "img/halloween_ghost01.png",
+      "img/batapala.png",
+      "img/8805.png",
     ];
 
-    let n = Math.floor(Math.random() * resultText.length);
+    // let n = Math.floor(Math.random() * resultTextImage.length);
 
-    omikujiText.textContent = resultText[n];
-    omikujiText.style.color = resultColor[n];
-    omikujiText.style.fontSize = resultFontSize[n];
+    while (n === prev_n) {
+      n = Math.floor(Math.random() * resultTextImage.length);
+    }
+    prev_n = n;
+    // omikujiText.textContent = resultText[n];
+    // omikujiText.style.color = resultColor[n];
+    // omikujiText.style.fontSize = resultFontSize[n];
+
+    omikujiTextImage.src = resultTextImage[n];
+    omikujiTextImage.classList.add("omikujiPaper");
+
+    omikujiTextImage.addEventListener(
+      "animationend",
+      function () {
+        omikujiTextImage.classList.remove("omikujiPaper");
+      },
+      false
+    );
+
     soundControl(resultSound[n]);
     // switch (n) {
     //   case 0:
